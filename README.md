@@ -117,3 +117,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
    node_modules/
    ```
 6. `pnpm add -D eslint-plugin-perfectionist`
+7. `pnpm add @mantine/core @mantine/hooks`
+8. `pnpm add -D postcss postcss-preset-mantine postcss-simple-vars`
