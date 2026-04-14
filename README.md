@@ -118,6 +118,71 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
    ```
 6. `pnpm add -D eslint-plugin-perfectionist`
 7. `pnpm add @mantine/core @mantine/hooks`
+
 8. `pnpm add -D postcss postcss-preset-mantine postcss-simple-vars`
 9. `pnpm add @supabase/ssr`
 10.   `npx skills add supabase/agent-skills`
+
+pnpm add -D prisma tsx
+pnpm add @prisma/adapter-pg @prisma/client dotenv
+npx prisma init --output ../app/generated/prisma
+prisma.config.ts
+DATABASE_URL="postgres://postgres:[PASSWORD]@db.[PROJECT-ID].supabase.co:5432/postgres"
+
+## 🛠 Робота з базою даних (Prisma 7)
+
+### 1. Перше налаштування (після клонування проекту)
+
+Якщо ви щойно склонували проект, виконайте ці кроки:
+
+1. **Встановіть залежності**:
+   ```bash
+   pnpm install
+   ```
+2. **Налаштуйте змінні оточення**:
+   Створіть `.env.local` (якщо його немає) та додайте пряме підключення до Supabase:
+   ```env
+   DATABASE_URL="postgres://postgres:[ВАШ_ПАРОЛЬ]@db.[PROJECT_ID].supabase.co:5432/postgres"
+   ```
+3. **Згенеруйте клієнт Prisma**:
+   Оскільки папка `generated/` не ігнорується (або генерується локально), запустіть:
+   ```bash
+   npx prisma generate
+   ```
+4. **Перевірте з'єднання**:
+   ```bash
+   pnpm db:test
+   ```
+
+---
+
+### 2. Як змінити схему або додати таблицю (Міграції)
+
+Для професійної роботи ми використовуємо систему міграцій, яка зберігає історію змін бази даних:
+
+1. **Внесіть зміни** у файли в папці `prisma/schema/`.
+2. **Створіть та застосуйте міграцію**:
+   Виконайте команду, яка створить SQL-файл міграції та оновить базу в Supabase:
+
+   ```bash
+   npx prisma migrate dev --name назва_вашої_зміни
+   ```
+
+   _Ця команда також автоматично оновить типи в папці `generated/prisma`._
+   якщо ні, то застосувати
+
+   ```bash
+   npx prisma generate
+   ```
+
+3. **Для Production** (після деплою):
+   На сервері (не локально) використовується:
+   ```bash
+   npx prisma migrate deploy
+   ```
+
+### Корисні команди
+
+- `pnpm db:studio` — відкрити візуальний редактор бази даних.
+- `pnpm db:test` — запустити перевірку підключення.
+- `npx prisma generate` — перегенерувати клієнт (якщо `generated/` видалено).
