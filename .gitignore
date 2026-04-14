@@ -57,3 +57,5 @@ next-env.d.ts
 .lh/
 
 .ameliance*.sh
+
+/generated/prisma
