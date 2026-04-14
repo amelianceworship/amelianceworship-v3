@@ -1,0 +1,10 @@
+
+model Service {
+  id        String          @id @default(uuid())
+  name      String
+  sortOrder Int             @default(0) @map("sort_order")
+  createdAt DateTime        @default(now()) @map("created_at")
+  buttons   ControlButton[]
+
+  @@map("services")
+}
