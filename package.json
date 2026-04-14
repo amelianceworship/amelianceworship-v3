@@ -8,7 +8,8 @@
 		"start": "next start",
 		"lint": "eslint",
 		"db:test": "tsx scripts/test-database.ts",
-		"db:studio": "prisma studio"
+		"db:studio": "prisma studio",
+		"postinstall": "prisma generate"
 	},
 	"dependencies": {
 		"@mantine/core": "^9.0.2",
